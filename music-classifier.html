@@ -1,0 +1,728 @@
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Music Classification Using Convolutional Neural Network | Birdhome</title>
+<meta name="generator" content="Jekyll v4.3.3">
+<meta property="og:title" content="Music Classification Using Convolutional Neural Network">
+<meta name="author" content="nieve">
+<meta property="og:locale" content="en_US">
+<meta name="description" content="I have learned a lot about artificial intelligence recently and wanted to build my own to test my skills. However, like in my previous projects, I wanted to work on an something that would actually be used (I don’t think many real estate agents would be interested in yet another housing price predictor). One of my friends enjoys listening to a lot of music and was lately trying to find some new songs to add to their collection, so eventually I decided to make a personalized music classifier to predict whether or not they will enjoy a song.">
+<meta property="og:description" content="I have learned a lot about artificial intelligence recently and wanted to build my own to test my skills. However, like in my previous projects, I wanted to work on an something that would actually be used (I don’t think many real estate agents would be interested in yet another housing price predictor). One of my friends enjoys listening to a lot of music and was lately trying to find some new songs to add to their collection, so eventually I decided to make a personalized music classifier to predict whether or not they will enjoy a song.">
+<link rel="canonical" href="https://birdhome.stellar.agew.tech/2023/09/15/music-classifier.html">
+<meta property="og:url" content="https://birdhome.stellar.agew.tech/2023/09/15/music-classifier.html">
+<meta property="og:site_name" content="Birdhome">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2023-09-15T00:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Music Classification Using Convolutional Neural Network">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"nieve"},"dateModified":"2023-09-15T00:00:00+00:00","datePublished":"2023-09-15T00:00:00+00:00","description":"I have learned a lot about artificial intelligence recently and wanted to build my own to test my skills. However, like in my previous projects, I wanted to work on an something that would actually be used (I don’t think many real estate agents would be interested in yet another housing price predictor). One of my friends enjoys listening to a lot of music and was lately trying to find some new songs to add to their collection, so eventually I decided to make a personalized music classifier to predict whether or not they will enjoy a song.","headline":"Music Classification Using Convolutional Neural Network","mainEntityOfPage":{"@type":"WebPage","@id":"https://birdhome.stellar.agew.tech/2023/09/15/music-classifier.html"},"url":"https://birdhome.stellar.agew.tech/2023/09/15/music-classifier.html"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://birdhome.stellar.agew.tech/feed.xml" title="Birdhome"><link rel="stylesheet" href="/assets/css/main.css" type="text/css">
+<script src="/assets/scripts/main.js"></script>
+<script src="//unpkg.com/alpinejs" defer=""></script> 
+<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+<link href="data:text/css,%3Ais(%5Bid*%3D'google_ads_iframe'%5D%2C%5Bid*%3D'taboola-'%5D%2C.taboolaHeight%2C.taboola-placeholder%2C%23credential_picker_container%2C%23credentials-picker-container%2C%23credential_picker_iframe%2C%5Bid*%3D'google-one-tap-iframe'%5D%2C%23google-one-tap-popup-container%2C.google-one-tap-modal-div%2C%23amp_floatingAdDiv%2C%23ez-content-blocker-container)%20%7Bdisplay%3Anone!important%3Bmin-height%3A0!important%3Bheight%3A0!important%3B%7D" rel="stylesheet" type="text/css"><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1px; bottom: 2px; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+<body class="flex flex-col grow vsc-initialized"><div id="MathJax_Message" style="display: none;"></div>
+  <div class="grow flex flex-col xl:flex-row gap-2.5 justify-center"><header class="site-header container1  xl:w-40">
+
+  <div class="wrapper xl:flex xl:flex-col"><a class="site-title" rel="author" href="/">Birdhome</a>
+
+    <hr class="hidden xl:block my-2"><nav class="site-nav z-20">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger">
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"></path>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog">Blog</a><a class="page-link" href="/algorithm">Algorithm</a><a class="page-link" href="/coding">Coding</a><a class="page-link" href="/games/">Games</a><a class="page-link" href="/art">Art</a><a class="page-link" href="/music">Music</a><a class="page-link" href="/wormhole">Wormhole</a><a class="page-link" href="/credits">Credits</a><a class="page-link" href="/images">Images</a></div>
+      </nav><img src="/assets/images/light/e2c6c528182f940dc0d383e3ca8f533e-701080707.png">
+  </div>
+</header>
+<style>
+  @media (min-width: 1280px) { 
+    .site-header {
+        border-left: 5px solid var(--minima-border-color-03);
+        border-right: 1px solid var(--minima-border-color-01);
+        border-top: none;
+        border-bottom: none;
+        .wrapper{
+            .site-nav{
+                float:none;
+                text-align: left;
+                .trigger{
+                    display:flex;
+                    flex-direction: column;
+                    .page-link{
+                        margin:0;
+                        flex-basis: 2.75rem;
+                    }
+                }
+            }
+        }
+    }
+
+}
+</style>
+<main class="grow max-w-screen-sm p-7 dark:bg-black container1 " aria-label="Content">
+  <article class="post h-entry" itemscope="" itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Music Classification Using Convolutional Neural Network</h1>
+    <p class="post-meta">
+          <span>writeup</span>
+        |<time class="dt-published" datetime="2023-09-15T00:00:00+00:00" itemprop="datePublished">
+        15 Sep, 2023
+      </time>• 
+          <span itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+            <span class="p-author h-card" itemprop="name">nieve</span></span></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <p>I have learned a lot about artificial intelligence recently and wanted to build my own to test my skills. However, like in my previous projects, I wanted to work on an something that would actually be used (I don’t think many real estate agents would be interested in yet another housing price predictor). One of my friends enjoys listening to a lot of music and was lately trying to find some new songs to add to their collection, so eventually I decided to make a personalized music classifier to predict whether or not they will enjoy a song.</p>
+
+<h2 id="overview">Overview</h2>
+
+<p>Sound is really just waves of pressure through the air, and the audio files we play are digital recordings of how the air pressure changes over time. However, human ears do not directly detect the air pressure. Instead, the ear contains many hairs each detect sound waves of a particular frequency, and the sum of these vibrations is what we hear. Because the program is trying to classify sound according to human characteristics, it makes sense to transform the input features into what humans percieve. This can be done by using the audio signal to creating a spectrogram, which display how intense the vibrations of each frequency are at each point in time.</p>
+
+<p>Next, the data can be classified using artificial intelligence. Convolutional neural networks are a suitable model for this purpose, for the following reasons</p>
+<ul>
+  <li>The input will be a 2 dimensional spectrogram</li>
+  <li>The data should be continuous, as the intensity of two points very close in time or frequency should be nearly the same</li>
+  <li>playing the entire song earlier or later in time does not affect how we percieve the song</li>
+  <li>shifting the frequency of the song by a small amount is also unlikely to affect the listening experience</li>
+</ul>
+
+<p>The model will be built in Python using Pytorch.</p>
+
+<h2 id="obtaining-data">Obtaining Data</h2>
+
+<p>Fortunately, my friend already had a library of about 1000 songs. Also, Youtube kept a convenient history of all previously listened songs. So using <a href="https://github.com/yt-dlp/yt-dlp">yt-dlp</a>, I downloaded the full library and about 3000 songs from the history.</p>
+
+<h2 id="cleaning-data">Cleaning data</h2>
+<p>Some of the files were podcasts, song/album compilations, and other undesirable data.
+Luckily, almost all songs had the song title and author provided in the file metadata, so I simply deleted the files without it. I also removed duplicate files with the same title and author, and deleted audio shorter than 1 minute or longer than 5 minutes. Finally, based on the filename (title and author also works), I removed songs from the full history that also appeared in the set of good songs, and chose about 1000 random remaining songs to be the ‘bad’ dataset.</p>
+
+<h2 id="processing-data">Processing data</h2>
+<p>All of the files are then converted to 48khz <code class="language-plaintext highlighter-rouge">.wav</code> format using <a href="https://ffmpeg.org/">ffmpeg</a>. Since wav files do not have compression, the encoding process is very fast.</p>
+
+<p>The files get placed in the ‘data’ folder, sorted by their classification. In this case, the folders are <code class="language-plaintext highlighter-rouge">data/good/</code> and <code class="language-plaintext highlighter-rouge">data/bad/</code>.</p>
+
+<h2 id="processing-data-part-2">Processing data part 2</h2>
+<p>Next, the data will be converted into spectrograms. Pytorch as</p>
+
+<p>First, the data is loaded. At this point, the dataset was over 70GB, much more than the memory on my system. So only filename and classification are stored, while the audio signial will be loaded as needed.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import os
+import torch
+import torchaudio
+from torchaudio import transforms
+import matplotlib.pyplot as plt
+from torch.utils.data import Dataset, DataLoader
+from pathlib import Path
+import math,random
+from IPython.display import Audio
+
+#load data
+def load_audio_files(path: str, label:str):
+
+    dataset = []
+    walker = sorted(str(p) for p in Path(path).glob(f'*.wav'))
+
+    for i, file_path in enumerate(walker):
+        path, filename = os.path.split(file_path)
+    
+        # Load audio
+        #waveform, sample_rate = torchaudio.load(file_path)
+        dataset.append([file_path, label])
+        
+    return dataset
+
+trainset_music_good = load_audio_files('./data/good', 'good')
+trainset_music_bad = load_audio_files('./data/bad', 'bad')
+trainset_music=trainset_music_good+trainset_music_bad
+
+</code></pre></div></div>
+
+<p>The audio for each file is read, converted to single channel, and truncated to 2 minutes (if it is shorter than 2 minutes, it is padded with silence). This is so all the inputs have the same shape, and listening to 2 minutes of a song should be enough to form an opinion on it (my guess). Next, it is converted to a spectrogram. Humans percieve pitch and loudness on a logarithmic scale (for example, doubling a music note increases it by one octave), so a mel spectrogram with a decibel scale is used.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+def open_file(audio_file):
+    waveform, sample_rate = torchaudio.load(audio_file)
+    return (waveform, sample_rate)
+
+#convert stereo to mono to save resources
+def toMono(audio):
+    waveform,s=audio
+    return (waveform[:1,:],s)
+
+def pad_trunc(aud, max_ms):
+    sig, sr = aud
+    num_rows, sig_len = sig.shape
+    max_len = sr//1000 * max_ms
+
+    if (sig_len &gt; max_len):
+        # Truncate the signal to the given length
+        sig = sig[:,:max_len]
+
+    elif (sig_len &lt; max_len):
+        # Length of padding to add at the beginning and end of the signal
+        pad_begin_len = random.randint(0, max_len - sig_len)
+        pad_end_len = max_len - sig_len - pad_begin_len
+
+        # Pad with 0s
+        pad_begin = torch.zeros((num_rows, pad_begin_len))
+        pad_end = torch.zeros((num_rows, pad_end_len))
+
+        sig = torch.cat((pad_begin, sig, pad_end), 1)
+        
+    return (sig, sr)
+
+def spectro_gram(aud, n_mels=512, n_fft=4096, hop_len=None):
+    sig,sr = aud
+    top_db = 80
+
+    # spec has shape [channel, n_mels, time], where channel is mono, stereo etc
+    spec = transforms.MelSpectrogram(sr, n_fft=n_fft, hop_length=hop_len, n_mels=n_mels)(sig)
+
+    # Convert to decibels
+    spec = transforms.AmplitudeToDB(top_db=top_db)(spec)
+    return (spec)
+
+
+for data in trainset_music:
+    filename=data[0]
+    
+    wv=open_file(filename)
+    wv=toMono(wv)
+    wv=pad_trunc(wv,60000*2)
+
+    spec=spectro_gram(wv)
+    spec=spec[0].detach().numpy()
+
+    label=data[1]
+
+    _,filename=os.path.split(filename)
+    filename,_=os.path.splitext(filename)
+
+    plt.imsave(f'./data/spectrograms/{label}/{filename}.png',spec,cmap='gray')
+</code></pre></div></div>
+<p>This conversion took over an hour on my computer. The resulting spectrogram is saved as a file so it does not have to be recalculated every time I train the model.</p>
+
+<p><img src="/assets/images/spectrogram.png" alt="spectrogram"></p>
+
+<h2 id="training">Training</h2>
+
+<p>The spectrograms are converted back from an image file to a tensor and loaded into a training and testing dataset, with 80% used for training.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>data_path = './data/spectrograms' #looking in subfolder train
+dataset = datasets.ImageFolder(root=data_path,transform=transforms.Compose([transforms.Grayscale(),transforms.ToTensor()]))
+class_map=dataset.class_to_idx
+print(class_map)
+
+#split data to test and train
+#use 80% to train
+train_size = int(0.8 * len(dataset))
+test_size = len(dataset) - train_size
+train_dataset, test_dataset = torch.utils.data.random_split(dataset, [train_size, test_size])
+
+print("Training size:", len(train_dataset))
+print("Testing size:",len(test_dataset))
+
+train_dataloader = torch.utils.data.DataLoader(
+    train_dataset,
+    batch_size=15,
+    num_workers=2,
+    shuffle=True
+)
+
+test_dataloader = torch.utils.data.DataLoader(
+    test_dataset,
+    batch_size=50,
+    num_workers=2,
+    shuffle=True
+)
+print(torch.cuda.is_available())
+</code></pre></div></div>
+
+<p>Now it is time to build the model. Initially, I used 4 convolutional layers followed by 2 dense layers.</p>
+
+<p>Compared to image object classification I’ve done before, the spectrograms are very high resolution. I do not want to reduce the initial resolution because it could destroy a lot of data in the sound timbre, and in addition music can sound very bad if the notes are a semitone off (but it’s just my thought process, I am not an expert in sound).</p>
+
+<p>Instead, I used max pooling after the convolutional layers where it has hopefully already extracted the important features.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class CNNet (nn.Module):
+    # ----------------------------
+    # Build the model architecture
+    # ----------------------------
+    def __init__(self):
+        super().__init__()
+        conv_layers = []
+
+        # First Convolution Block with Relu and Batch Norm. Use Kaiming Initialization
+        self.conv1 = nn.Conv2d(1, 8, kernel_size=5)
+        self.relu1 = nn.ReLU()
+        self.bn1 = nn.BatchNorm2d(8)
+        nn.init.kaiming_normal_(self.conv1.weight, a=0.1)
+        self.conv1.bias.data.zero_()
+        conv_layers += [self.conv1, self.relu1,self.bn1]
+
+        # Second Convolution Block
+        self.conv2 = nn.Conv2d(8, 16, kernel_size=3)
+        self.relu2 = nn.ReLU()
+        self.bn2 = nn.BatchNorm2d(16)
+        nn.init.kaiming_normal_(self.conv2.weight, a=0.1)
+        self.conv2.bias.data.zero_()
+        self.drop2 = nn.Dropout2d()
+        self.pool2=nn.MaxPool2d(2)
+        conv_layers += [self.conv2, self.pool2, self.relu2,self.bn2]
+
+        # third Convolution Block
+        self.conv3 = nn.Conv2d(16, 32, kernel_size=3)
+        self.relu3 = nn.ReLU()
+        self.bn3 = nn.BatchNorm2d(32)
+        nn.init.kaiming_normal_(self.conv3.weight, a=0.1)
+        self.conv3.bias.data.zero_()
+        self.drop3 = nn.Dropout2d()
+        self.pool3=nn.MaxPool2d(2)
+        conv_layers += [self.conv3, self.drop3, self.pool3,self.relu3,self.bn3]
+
+        # fourth Convolution Block
+        self.conv4 = nn.Conv2d(32, 64, kernel_size=3)
+        self.relu4 = nn.ReLU()
+        self.bn4 = nn.BatchNorm2d(64)
+        nn.init.kaiming_normal_(self.conv4.weight, a=0.1)
+        self.conv4.bias.data.zero_()
+        self.drop4 = nn.Dropout2d()
+        self.pool4=nn.MaxPool2d(2)
+        conv_layers += [self.conv4, self.drop4, self.pool4,self.relu4,self.bn4]
+
+        # 5 Block
+        self.conv5 = nn.Conv2d(64, 64, kernel_size=3)
+        self.relu5 = nn.ReLU()
+        self.bn5 = nn.BatchNorm2d(64)
+        nn.init.kaiming_normal_(self.conv5.weight, a=0.1)
+        self.conv5.bias.data.zero_()
+        self.drop5 = nn.Dropout2d()
+        self.pool5=nn.MaxPool2d(2)
+        conv_layers += [self.conv5, self.drop5, self.pool5,self.relu5,self.bn5]
+
+        # Block 6
+        self.conv6 = nn.Conv2d(64, 64, kernel_size=3, stride=(2, 2))
+        self.relu6 = nn.ReLU()
+        self.bn6 = nn.BatchNorm2d(64)
+        nn.init.kaiming_normal_(self.conv6.weight, a=0.1)
+        self.conv6.bias.data.zero_()
+        self.drop6 = nn.Dropout2d()
+        self.pool6=nn.MaxPool2d(2)
+        conv_layers += [self.conv6, self.drop6, self.pool6,self.relu6,self.bn6]
+
+        self.flatten=nn.Flatten()
+        # Linear Classifier
+        self.lin1 = nn.Linear(19264,50)
+        self.lin2=nn.Linear(50,2)
+
+        # Wrap the Convolutional Blocks
+        self.conv = nn.Sequential(*conv_layers)
+ 
+    # ----------------------------
+    # Forward pass computations
+    # ----------------------------
+    def forward(self, x):
+        # Run the convolutional blocks
+        x = self.conv(x)
+
+        # Adaptive pool and flatten for input to linear layer
+        x = x.view(x.shape[0], -1)
+        x=self.flatten(x)
+
+        # Linear layer
+        x = F.relu(self.lin1(x))
+        x=self.lin2(x)
+
+        # Final output
+        x=F.log_softmax(x,dim=1)
+        return x
+
+# Create the model and put it on the GPU if available
+myModel = CNNet()
+device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+myModel = myModel.to(device)
+# Check that it is on Cuda
+next(myModel.parameters()).device
+
+summary(myModel, input_size=(25,1,2813,512))
+</code></pre></div></div>
+
+<p>Training took about 30 minutes on my single Nvidia RTX 3090:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># cost function used to determine best parameters
+cost = torch.nn.CrossEntropyLoss()
+
+# used to create optimal parameters
+learning_rate = 0.0001
+optimizer = torch.optim.Adam(myModel.parameters(), lr=learning_rate)
+
+# Create the training function
+
+def train(dataloader, model, loss, optimizer):
+    model.train()
+    size = len(dataloader.dataset)
+    for batch, (X, Y) in enumerate(dataloader):
+        
+        X, Y = X.to(device), Y.to(device)
+        optimizer.zero_grad()
+        pred = model(X)
+        loss = cost(pred, Y)
+        loss.backward()
+        optimizer.step()
+
+        if batch % 60 == 0:
+            loss, current = loss.item(), batch * len(X)
+            print(f'loss: {loss:&gt;7f}  [{current:&gt;5d}/{size:&gt;5d}]')
+
+
+# Create the validation/test function
+
+def test(dataloader, model):
+    model.eval()
+    test_loss, correct = 0, 0
+
+    with torch.no_grad():
+        for batch, (X, Y) in enumerate(dataloader):
+            X, Y = X.to(device), Y.to(device)
+            pred = model(X)
+
+            test_loss += cost(pred, Y).item()
+            correct += (pred.argmax(1)==Y).type(torch.float).sum().item()
+
+    test_loss /= len(dataloader)
+    correct /= len(dataloader.dataset)
+
+    print(f'\nTest Error:\nacc: {(100*correct):&gt;0.1f}%, avg loss: {test_loss:&gt;8f}\n')
+
+#training
+epochs = 15
+
+for t in range(epochs):
+    print(f'Epoch {t+1}\n-------------------------------')
+    train(train_dataloader, myModel, cost, optimizer)
+    test(test_dataloader, myModel)
+print('Done!')
+</code></pre></div></div>
+
+<p>The training loss quickly approached 0, but the the testing loss did not decrease significantly. At the end, the model had 60% accuracy, barely better than random guessing. So it was clearly overfitting.</p>
+
+<p>I added a dropout layer after every convolutional layer other than the first, and reran the training. This time, the training loss fluctuated highly and sometimes even increased. In the end, both the training and testing performance were not great.
+This was fixed by decreasing the learning rate and increasing the number of training epochs to 25, by which point the process significant slowed down.</p>
+
+<p>I then added more convolutional layers and decreased the learning rate. I also decided to increase the dataset through data augmentation.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+def open_file(audio_file):
+    waveform, sample_rate = torchaudio.load(audio_file)
+    return (waveform, sample_rate)
+
+#convert stereo to mono to save resources
+def toMono(audio):
+    waveform,s=audio
+    return (waveform[:1,:],s)
+
+def pad_trunc(aud, max_ms):
+    sig, sr = aud
+    num_rows, sig_len = sig.shape
+    max_len = sr//1000 * max_ms
+
+    if (sig_len &gt; max_len):
+        # Truncate the signal to the given length
+        sig = sig[:,:max_len]
+
+    elif (sig_len &lt; max_len):
+        # Length of padding to add at the beginning and end of the signal
+        pad_begin_len = random.randint(0, max_len - sig_len)
+        pad_end_len = max_len - sig_len - pad_begin_len
+
+        # Pad with 0s
+        pad_begin = torch.zeros((num_rows, pad_begin_len))
+        pad_end = torch.zeros((num_rows, pad_end_len))
+
+        sig = torch.cat((pad_begin, sig, pad_end), 1)
+        
+    return (sig, sr)
+
+def time_shift(aud, shift_limit):
+    sig,sr = aud
+    _, sig_len = sig.shape
+    shift_amt = int(random.random() * shift_limit * sig_len)
+    return (sig.roll(shift_amt), sr)
+
+def pitch_shift(aud, shift_limit):
+    sig,sr = aud
+    shift_amt = int(random.random() * shift_limit)
+    sig=transforms.PitchShift(sample_rate=sr, n_steps=shift_amt)(sig)
+    return (sig,sr)
+def speed_shift(aud, shift_limit):
+    sig,sr = aud
+    shift_amt = int(random.random() * shift_limit)
+    sig=transforms.Speed(sig,sr, shift_amt)
+    return (sig,sr)
+
+def data_augment(aud):
+    aud=pitch_shift(aud,4)
+    aud=time_shift(aud,0.1)
+    return aud
+def stretch(spec):
+    rate=int(random.random()*0.2)+0.9
+    spec=transforms.TimeStretch(n_freq=512,fixed_rate=rate)(spec)
+    return spec
+
+def spectro_gram(aud, n_mels=512, n_fft=4096, hop_len=None):
+    sig,sr = aud
+    top_db = 80
+
+    # spec has shape [channel, n_mels, time], where channel is mono, stereo etc
+    spec = transforms.MelSpectrogram(sr, n_fft=n_fft, hop_length=hop_len, n_mels=n_mels)(sig)
+
+    # Convert to decibels
+    spec = transforms.AmplitudeToDB(top_db=top_db)(spec)
+    return (spec)
+
+
+for i in range(0,3):
+    for data in trainset_music:
+        filename=data[0]
+        
+        wv=open_file(filename)
+        wv=toMono(wv)
+        wv=pad_trunc(wv,60000*2)
+        if i&gt;0:
+            wv=data_augment(wv)
+        spec=spectro_gram(wv)
+        spec=spec[0].detach().numpy()
+
+        label=data[1]
+
+        _,filename=os.path.split(filename)
+        filename,_=os.path.splitext(filename)
+
+        plt.imsave(f'./data/spectrograms/{label}/{filename}_{i}.png',spec,cmap='gray')
+
+</code></pre></div></div>
+
+<p>There are several ways to augment audio data. First, the audio can be simply shifted in time. The pitch can be slightly adjusted up or down, and the song can be sped up or slowed down by a small factor. For each song, I added two more datapoints by applying a random combination of these 3 transformations.</p>
+
+<p>After these changes, the model finally began learning again. For my final attempt, I increase the training epochs to 50. After training for 2.5 hours, it had a test accuracy of about 88%.</p>
+
+<h2 id="prediction">Prediction</h2>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#predictions
+def predict(data, model):
+    model.eval()
+    test_loss, correct = 0, 0
+    with torch.no_grad():
+        for filename,(X, Y) in zip(data.imgs,data):
+            X.unsqueeze_(-1)
+            X=X.transpose(1,3)
+            X=X.to(device)
+            pred = model(X)
+            pred=pred.argmax(1)
+            print(filename,reverse_class_map[pred])
+            
+
+
+#convert to spectrogram first using data_prep
+inference_dataset = datasets.ImageFolder(root='./data/test/',transform=transforms.Compose([transforms.Grayscale(),transforms.ToTensor()]))
+predict(inference_dataset,myModel)
+
+</code></pre></div></div>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>It’s possible that one’s taste in music has changed over time, so the earlier datapoints were harmful to the training.</p>
+
+<p>Unfortunately the performance is not as great as I was used to on more standard CNN tasks such as <a href="http://yann.lecun.com/exdb/mnist/">MNIST</a>. In addition, it required a large collection of labeled data on my friend’s music preferences, which many people may not have. Still, after downloading and using the model to filter through some new songs (and listening the remaining ones myself) them I was able make several recommendations my friend enjoyed.</p>
+
+<p><a href="https://github.com/ac615223s5/music-classifier">Source code</a></p>
+
+<h2 id="retraining-for-other-tasks">Retraining for other tasks</h2>
+
+<p>Since I already had all the code written, I wanted to see if the same model could be retrained to work for other sound classification tasks. This time, I found and downloaded a playlist of <a href="https://www.youtube.com/playlist?list=PLCaYobZ79uQrZOWJNbtSPb2vq39LAy_pv">classical music</a> and <a href="https://www.youtube.com/playlist?list=PLa1E0oX0lRB_sbxnVBWYVQj7B3aQwD9Uk">electronic music</a>. The audio was again converted to spectrograms, without data augmentation. I then retrained the model on this data, and it had an accuracy of 99.7%. So that was definitely a success.</p>
+
+  </div><a class="u-url" href="/2023/09/15/music-classifier.html" hidden=""></a>
+</article>
+</main>
+    <aside class="container1 p-7 w-48 flex flex-col">
+      Decorative Block
+      <div class="grow"></div>
+      <img src="/assets/images/light/1038621yv64mh2h7b.gif">
+    </aside>
+  </div>
+  <footer class="site-footer h-card ">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="https://birdhome.stellar.agew.tech/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+        <ul class="contact-list">
+          <li class="p-name">nieve</li>
+          <li><a class="u-matrix" href="https://matrix.to/#/@alnvyuitw34:matrix.org">@alnvyuitw34:matrix.org</a></li>
+          <li><a class="u-email" href="mailto:ppu7haxj@duck.com">ppu7haxj@duck.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <p>Run Free</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li>
+  <a rel="me" href="https://simplex.chat/contact#/?v=2-5&amp;smp=smp%3A%2F%2FUkMFNAXLXeAAe0beCa4w6X_zp18PwxSaSjY17BKUGXQ%3D%40smp12.simplex.im%2FlMAI_ct62DZ8LSS5w-TtWG4G8pT1kVr_%23%2F%3Fv%3D1-2%26dh%3DMCowBQYDK2VuAyEAbhB6mjf8jT0GO3m5eqLEgRLZ7THEJRcnmXiKn-7aDHc%253D%26srv%3Die42b5weq7zdkghocs3mgxdjeuycheeqqmksntj57rmejagmg4eor5yd.onion" target="_blank" title="simplex">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#simplex"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://codeberg.org/nieve" target="_blank" title="codeberg">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#codeberg"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://github.com/ac615223s5" target="_blank" title="github">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#github"></use>
+    </svg>
+  </a>
+</li>
+<li>
+  <a rel="me" href="https://www.youtube.com/channel/UCm8GhQcqqMeWz67SiMgCwTQ" target="_blank" title="youtube">
+    <svg class="svg-icon grey">
+      <use xlink:href="/assets/minima-social-icons.svg#youtube"></use>
+    </svg>
+  </a>
+</li>
+</ul>
+</div>
+
+  </div>
+
+</footer>
+
+
+<style>
+  body{
+    
+  }
+  @media (prefers-color-scheme: dark) {
+    body {
+      background: url(https://sadhost.neocities.org/images/tiles/starbub2.gif);
+    }
+  }
+</style>
+
+</body></html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <title></title>
+  <base href="" />
+  <link rel="icon" href=/assets/images/favicon.ico type="image/icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="//unpkg.com/alpinejs" defer></script>
+  <script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
+  <link rel="stylesheet" href=/assets/css/main.css type="text/css">
+</head>
+
+<body class="">
+  <div class="bg-[url('/assets/images/img.svg')] bg-cover bg-fixed h-[95vh] flex flex-col">
+    <div class="intro grow flex flex-col justify-center sm:ml-64">
+      <h1 class="text-8xl text-sky-50">Victor Gao</h1>
+      <div class="nav">
+        <div class="flex">
+          
+          <a href="/">
+            <div class="p-4 text-center text-2xl text-sky-100 hover:text-white hover:shadow-[0_0_9px_2px]">
+              Resume</div>
+          </a>
+          
+          <a href="/#portfolio">
+            <div class="p-4 text-center text-2xl text-sky-100 hover:text-white hover:shadow-[0_0_9px_2px]">
+              Projects</div>
+          </a>
+          
+          <a href="/#experience">
+            <div class="p-4 text-center text-2xl text-sky-100 hover:text-white hover:shadow-[0_0_9px_2px]">
+              Experience</div>
+          </a>
+          
+          <a href="/#contact">
+            <div class="p-4 text-center text-2xl text-sky-100 hover:text-white hover:shadow-[0_0_9px_2px]">
+              Contact</div>
+          </a>
+          
+        </div>
+      </div>
+    </div>
+    <div class="bg-[url('/assets/images/curvewhite.png')] dark:bg-[url('/assets/images/curve.png')] bg-[length:auto_100%] h-1/4"></div>
+  </div>
+  <div class="p-8 dark:text-white">
+    <h1 class="text-center col-span-full text-3xl" id="portfolio">My Portfolio</h1>
+    <div class="max-w-screen-lg mx-auto flex flex-col gap-4">
+      
+        <div class="flex gap-4 shadow max-sm:flex-col">
+          <div class="w-72 h-52 flex-none">
+            <img class="h-full" src="/assets/images/herriot.png">
+          </div>
+          <div class="flex flex-col gap-1 justify-center">
+            <h2 class="text-2xl">Herriot</h2>
+            <p>A organiser/checklist for programming problems</p>
+            <ul class="list-disc list-inside leading-4">
+              
+                <li>Allows users and/or administrators to create, edit, vote, and comment on problems</li>
+              
+                <li>Allows creation and sharing of custom problem lists</li>
+              
+                <li>Supports filtering/sorting problems by difficulty and tags</li>
+              
+            </ul>
+            <p>Skills used: Typescript, Vue, Nuxt, Tailwind CSS, Node, Express, MongoDB</p>
+            <div>
+              
+              <a href="https://lucent-brioche-94aab5.netlify.app/" class="underline text-orange-400">Demo</a>
+              
+              <a href="https://github.com/victorgao001/herriot" class="underline text-orange-400">Code</a>
+              
+            </div>
+          </div>
+        </div>
+      
+        <div class="flex gap-4 shadow max-sm:flex-col">
+          <div class="w-72 h-52 flex-none">
+            <img class="h-full" src="/assets/images/plot_rating.png">
+          </div>
+          <div class="flex flex-col gap-1 justify-center">
+            <h2 class="text-2xl">Tle</h2>
+            <p>Discord Bot for Competitive Programming</p>
+            <ul class="list-disc list-inside leading-4">
+              
+                <li>Uses data from Codeforces API to graph user statistics, suggest practice problems, and predict contest rating changes and problem difficulties</li>
+              
+                <li>Authenticates and links Discord users to their Codeforces account.</li>
+              
+            </ul>
+            <p>Skills used: Python (SQLAlchemy, Matplotlib, Pandas, Venv), Git</p>
+            <div>
+              
+              <a href="https://github.com/victorgao001/tle" class="underline text-orange-400">Code</a>
+              
+            </div>
+          </div>
+        </div>
+      
+        <div class="flex gap-4 shadow max-sm:flex-col">
+          <div class="w-72 h-52 flex-none">
+            
+          </div>
+          <div class="flex flex-col gap-1 justify-center">
+            <h2 class="text-2xl">Music classification ai</h2>
+            <p></p>
+            <ul class="list-disc list-inside leading-4">
+              
+                <li>Collects and processes songs from the internet and prepares the training data using Fourier analysis</li>
+              
+                <li>Trains a convolutional neural network (CNN) to classify music by genre with 99% accuracy</li>
+              
+                <li>Prevents overfitting using dropout and data augmentation</li>
+              
+            </ul>
+            <p>Skills used: PyTorch, Numpy, Pandas, Matplotlib</p>
+            <div>
+              
+              <a href="https://victorgao001.github.io/blog/2023/09/15/music-classifier.html" class="underline text-orange-400">Blog</a>
+              
+              <a href="https://github.com/victorgao001/music-classifier" class="underline text-orange-400">Code</a>
+              
+            </div>
+          </div>
+        </div>
+      
+        <div class="flex gap-4 shadow max-sm:flex-col">
+          <div class="w-72 h-52 flex-none">
+            <img class="h-full" src="/assets/images/speedforces.png">
+          </div>
+          <div class="flex flex-col gap-1 justify-center">
+            <h2 class="text-2xl">Speedforces</h2>
+            <p>A typing test/game.</p>
+            <ul class="list-disc list-inside leading-4">
+              
+            </ul>
+            <p>Skills used: reactjs</p>
+            <div>
+              
+              <a href="https://victorgao001.github.io/speedforces/" class="underline text-orange-400">Demo</a>
+              
+              <a href="https://github.com/victorgao001/speedforces" class="underline text-orange-400">Code</a>
+              
+            </div>
+          </div>
+        </div>
+      
+        <div class="flex gap-4 shadow max-sm:flex-col">
+          <div class="w-72 h-52 flex-none">
+            <img class="h-full" src="/assets/images/maze.png">
+          </div>
+          <div class="flex flex-col gap-1 justify-center">
+            <h2 class="text-2xl">Maze simulator</h2>
+            <p></p>
+            <ul class="list-disc list-inside leading-4">
+              
+                <li>A website for visualizing searching algorithms including A*, Dijkstra, and SPFA.</li>
+              
+                <li>Allows users to generate randomized mazes and modify them.</li>
+              
+            </ul>
+            <p>Skills used: ReactJS, algorithms, graph theory</p>
+            <div>
+              
+              <a href="https://victorgao001.github.io/" class="underline text-orange-400">Demo</a>
+              
+              <a href="https://github.com/victorgao001/" class="underline text-orange-400">Code</a>
+              
+            </div>
+          </div>
+        </div>
+      
+        <div class="flex gap-4 shadow max-sm:flex-col">
+          <div class="w-72 h-52 flex-none">
+            
+          </div>
+          <div class="flex flex-col gap-1 justify-center">
+            <h2 class="text-2xl">Museum</h2>
+            <p>A collection of interactive</p>
+            <ul class="list-disc list-inside leading-4">
+              
+            </ul>
+            <p>Skills used: </p>
+            <div>
+              
+              <a href="https://victorgao001.github.io/" class="underline text-orange-400">Demo</a>
+              
+              <a href="https://github.com/victorgao001/" class="underline text-orange-400">Code</a>
+              
+            </div>
+          </div>
+        </div>
+      
+        <div class="flex gap-4 shadow max-sm:flex-col">
+          <div class="w-72 h-52 flex-none">
+            
+          </div>
+          <div class="flex flex-col gap-1 justify-center">
+            <h2 class="text-2xl">Sorting visualization</h2>
+            <p>A demonstration of various sorting algorithms</p>
+            <ul class="list-disc list-inside leading-4">
+              
+            </ul>
+            <p>Skills used: svelte, algorithms</p>
+            <div>
+              
+              <a href="https://victorgao001.github.io/" class="underline text-orange-400">Demo</a>
+              
+              <a href="https://github.com/victorgao001/" class="underline text-orange-400">Code</a>
+              
+            </div>
+          </div>
+        </div>
+      
+      <h1 class="text-center col-span-full text-3xl" id="experience">Experience</h1>
+      
+        <div class="flex gap-4 shadow max-sm:flex-col">
+          <div class="w-72 h-52 flex-none">
+            
+          </div>
+          <div class="flex flex-col gap-1 justify-center">
+            <h2 class="text-2xl">Redlib (contributor and instance administrator)</h2>
+            <p>Private front-end for Reddit</p>
+            <ul class="list-disc list-inside leading-4">
+              
+                <li>Hosted a webserver locally using Docker and Nginx</li>
+              
+                <li>Exposed the server to the internet</li>
+              
+            </ul>
+            <p>Skills used: Vue, TailwindCSS, Docker, Nginx, Linux, Bash, networking</p>
+            <div>
+              
+              <a href="https://redlib.agew.tech" class="underline text-orange-400">Demo</a>
+              
+              <a href="https://github.com/redlib-org/redlib" class="underline text-orange-400">Code</a>
+              
+            </div>
+          </div>
+        </div>
+      
+        <div class="flex gap-4 shadow max-sm:flex-col">
+          <div class="w-72 h-52 flex-none">
+            
+          </div>
+          <div class="flex flex-col gap-1 justify-center">
+            <h2 class="text-2xl">Piped (contributor and instance administrator)</h2>
+            <p>An alternative privacy-friendly YouTube frontend which is efficient by design.</p>
+            <ul class="list-disc list-inside leading-4">
+              
+                <li>Modified the video progress bar to display video chapters</li>
+              
+                <li>Implemented keyboard shortcuts for chapter selection</li>
+              
+                <li>Reduced server load and buffering time by retaining video data after it has been played</li>
+              
+                <li>Hosted an instance on a local webserver, accessible over the internet</li>
+              
+            </ul>
+            <p>Skills used: Vue, TailwindCSS, Docker, Nginx, Linux, Bash, networking</p>
+            <div>
+              
+              <a href="https://piped.video/" class="underline text-orange-400">Demo</a>
+              
+              <a href="https://github.com/TeamPiped/Piped/" class="underline text-orange-400">Code</a>
+              
+            </div>
+          </div>
+        </div>
+      
+        <div class="flex gap-4 shadow max-sm:flex-col">
+          <div class="w-72 h-52 flex-none">
+            
+          </div>
+          <div class="flex flex-col gap-1 justify-center">
+            <h2 class="text-2xl">Lossless cut (contributor)</h2>
+            <p>The swiss army knife of lossless video/audio editing</p>
+            <ul class="list-disc list-inside leading-4">
+              
+                <li>Implemented a "true keyframe cut" mode to consistently select the correct keyframe.</li>
+              
+            </ul>
+            <p>Skills used: Typescript, Electron</p>
+            <div>
+              
+              <a href="https://github.com/victorgao001/lossless-cut/releases/latest" class="underline text-orange-400">Demo</a>
+              
+              <a href="https://github.com/victorgao001/lossless-cut" class="underline text-orange-400">Code</a>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  </div>
+</body>
+
+</html>
