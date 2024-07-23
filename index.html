@@ -1,0 +1,231 @@
+---
+landing_links:
+  - name: Resume
+    link: "#"
+  - name: Projects
+    link: "#portfolio"
+  - name: Experience
+    link: "#experience"
+  - name: Contact
+    link: "#contact"
+portfolio:
+  - title: herriot
+    description: A organiser/checklist for programming problems
+    features:
+      - Allows users and/or administrators to create, edit, vote, and comment on problems
+      - Allows creation and sharing of custom problem lists
+      - Supports filtering/sorting problems by difficulty and tags
+    skills: Typescript, Vue, Nuxt, Tailwind CSS, Node, Express, MongoDB
+    image: herriot.png
+    links:
+      - name: Demo
+        link: https://lucent-brioche-94aab5.netlify.app/
+      - name: Code
+        link: https://github.com/victorgao001/herriot
+  - title: TLE 
+    description: Discord Bot for Competitive Programming
+    features:
+      - Uses data from Codeforces API to graph user statistics, suggest practice problems, and predict contest rating changes and problem difficulties
+      - Authenticates and links Discord users to their Codeforces account.
+    skills: Python (SQLAlchemy, Matplotlib, Pandas, Venv), Git
+    image: plot_rating.png
+    links:
+      - name: Code
+        link: https://github.com/victorgao001/tle
+  - title: Music Classification AI
+    description: 
+    features:
+      - Collects and processes songs from the internet and prepares the training data using Fourier analysis
+      - Trains a convolutional neural network (CNN) to classify music by genre with 99% accuracy
+      - Prevents overfitting using dropout and data augmentation
+    skills: PyTorch, Numpy, Pandas, Matplotlib
+    links:
+      - name: Blog
+        link: https://victorgao001.github.io/blog/2023/09/15/music-classifier.html
+      - name: Code
+        link: https://github.com/victorgao001/music-classifier
+  - title: speedforces
+    description: A typing test/game.
+    skills: Reactjs
+    image: speedforces.png
+    links:
+      - name: Demo
+        link: https://victorgao001.github.io/speedforces/
+      - name: Code
+        link: https://github.com/victorgao001/speedforces
+  - title: maze simulator 
+    features:
+      - A website for visualizing searching algorithms including A*, Dijkstra, and SPFA.
+      - Allows users to generate randomized mazes and modify them.
+    skills: ReactJS, algorithms
+    image: maze.png
+    links:
+      - name: Demo
+        link: https://victorgao001.github.io/
+      - name: Code
+        link: https://github.com/victorgao001/
+  - title: sorting visualization 
+    description: A demonstration of various sorting algorithms
+    skills: Svelte, algorithms
+    image: sorting.png
+    links:
+      - name: Demo
+        link: https://victorgao001.github.aio/sorting-algorithm-visualization/
+      - name: Code
+        link: https://github.com/victorgao001/sorting-algorithm-visualization/
+  - title: fireworks music visualizer
+    description: An interactive fireworks show that syncs with music
+    skills: Javascript
+    image: fireworks.jpg
+    links:
+      - name: Demo
+        link: https://victorgao001.github.io/blog/2024/02/14/fireworks-music-background.html
+      - name: Code
+        link: https://github.com/victorgao001/fireworks
+  - title: Museum
+    description: A collection of interactive algorithm and math demonstrations
+    skills: Jekyll, AlpineJS, algorithms, math
+    image: halfplane.png
+    links:
+      - name: Demo
+        link: https://victorgao001.github.io/museum
+      - name: Code
+        link: https://github.com/victorgao001/museum
+  - title: Spiral Dreams
+    description: A 2d multiplayer game
+    skills: Godot (GDScript), math
+    image: 
+    links:
+      - name: Demo
+        link: https://github.com/victorgao001/Spiral-Dreams/releases/latest
+      - name: Code
+        link: https://github.com/victorgao001/Spiral-Dreams
+experience:
+  - title: redlib (Software Developer/Contributor, System Administrator)
+    description:  Private front-end for Reddit  
+    features:
+      - Hosted a webserver locally using Docker and Nginx
+      - Exposed the server to the internet
+    skills: Rust (Hyper, Askama, Rustls), Docker, Nginx, Linux (Bash), networking
+    image: redlib.png
+    links:
+    - name: Demo
+      link: https://redlib.agew.tech
+    - name: Code
+      link: https://github.com/redlib-org/redlib
+  - title: piped (Software Developer/Contributor, Instance Administrator)
+    description: An alternative privacy-friendly YouTube frontend which is efficient by design. 
+    features:
+      - Modified the video progress bar to display video chapters
+      - Implemented keyboard shortcuts for chapter selection
+      - Reduced server load and buffering time by retaining video data after it has been played
+      - Hosted an instance on a local webserver, accessible over the internet
+    skills: Vue, TailwindCSS, Docker, Nginx, Linux, Bash, networking
+    image: piped.svg
+    links:
+      - name: Demo
+        link: https://piped.video/
+      - name: Code
+        link: https://github.com/TeamPiped/Piped/
+  - title: lossless cut (Software Developer/Contributor)
+    description: The swiss army knife of lossless video/audio editing 
+    features:
+      - Implemented a "true keyframe cut" mode to consistently select the correct keyframe.
+    skills: Typescript, Electron
+    image: icon.svg
+    links:
+      - name: Demo
+        link: https://github.com/victorgao001/lossless-cut/releases/latest
+      - name: Code
+        link: https://github.com/victorgao001/lossless-cut
+  - title: vs theme switcher (Contributor)
+    description: An extension for Visual Studio Code to automatically switch between themes
+    features:
+      - Allowed users to choose a list of themes to randomly select from
+      - Added an option to specify commands to run after selecting a theme
+    skills: Typescript
+    image: icon.png
+    links:
+      - name: Demo
+        link: https://github.com/victorgao001/vs-theme-switcher/releases/latest
+      - name: Code
+        link: https://github.com/victorgao001/vs-theme-switcher
+---
+<!DOCTYPE html>
+
+<html lang="en">
+{%include head.html%}
+
+<body class="">
+  <div class="bg-[url('/assets/images/img.svg')] bg-cover bg-fixed h-[95vh] flex flex-col">
+    <div class="intro grow flex flex-col justify-center sm:ml-64">
+      <h1 class="text-8xl text-sky-50">Victor Gao</h1>
+      <div class="nav">
+        <div class="flex">
+          {% for item in page.landing_links %}
+          <a href="{{item.link | relative_url}}">
+            <div class="p-4 text-center text-2xl text-sky-100 hover:text-white hover:shadow-[0_0_9px_2px]">
+              {{item.name}}</div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    <div class="bg-[url('/assets/images/curvewhite.png')] dark:bg-[url('/assets/images/curve.png')] bg-[length:auto_100%] h-1/4"></div>
+  </div>
+  <div class="p-8 dark:text-white dark:bg-neutral-700">
+    <h1 class="h1" id="portfolio">My Portfolio</h1>
+    <div class="max-w-screen-lg mx-auto flex flex-col gap-4">
+      {% for item in page.portfolio %}
+        <div class="flex gap-4 shadow max-sm:flex-col">
+          <div class="w-72 h-52 flex-none">
+            {%if item.image%}<img class="h-full" src="/assets/images/{{item.image}}">{%endif%}
+          </div>
+          <div class="flex flex-col gap-1 justify-center">
+            <h2 class="text-2xl">{{item.title|capitalize}}</h2>
+            <p>{{item.description}}</p>
+            <ul class="list-disc list-inside leading-4">
+              {%for line in item.features%}
+                <li>{{line}}</li>
+              {%endfor%}
+            </ul>
+            <p>Skills used: {{item.skills}}</p>
+            <div>
+              {%for link in item.links%}
+              <a href="{{link.link}}" class="underline text-orange-400">{{link.name}}</a>
+              {%endfor%}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      <h1 class="h1" id="experience">Experience</h1>
+      {% for item in page.experience %}
+        <div class="flex gap-4 shadow max-sm:flex-col">
+          <div class="w-72 h-52 flex-none">
+            {%if item.image%}<img class="h-full" src="/assets/images/{{item.image}}">{%endif%}
+          </div>
+          <div class="flex flex-col gap-1 justify-center">
+            <h2 class="text-2xl">{{item.title|capitalize}}</h2>
+            <p>{{item.description}}</p>
+            <ul class="list-disc list-inside leading-4">
+              {%for line in item.features%}
+                <li>{{line}}</li>
+              {%endfor%}
+            </ul>
+            <p>Skills used: {{item.skills}}</p>
+            <div>
+              {%for link in item.links%}
+              <a href="{{link.link}}" class="underline text-orange-400">{{link.name}}</a>
+              {%endfor%}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      <h1 class="h1" id="contact">Contact</h1>
+      <a class="underline text-orange-400 text-center" href="https://github.com/victorgao001">Github</a>
+      <a class="underline text-orange-400 text-center" href="mailto:victorgao001@gmail.com">Email</a>
+    </div>
+  </div>
+</body>
+
+</html>
