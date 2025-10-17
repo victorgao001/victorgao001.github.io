@@ -182,7 +182,7 @@ experience:
             {%if item.image%}<img class="h-full" src="/assets/images/{{item.image}}">{%endif%}
           </div>
           <div class="flex flex-col gap-1 justify-center">
-            <h2 class="text-2xl">{{item.title|capitalize}}</h2>
+            <h2 class="text-2xl" id="{{item.title}}">{{item.title|capitalize}}</h2>
             <p>{{item.description}}</p>
             <ul class="list-disc list-inside leading-4">
               {%for line in item.features%}
@@ -205,7 +205,7 @@ experience:
             {%if item.image%}<img class="h-full" src="/assets/images/{{item.image}}">{%endif%}
           </div>
           <div class="flex flex-col gap-1 justify-center">
-            <h2 class="text-2xl">{{item.title|capitalize}}</h2>
+            <h2 class="text-2xl" id="{{item.title}}">{{item.title|capitalize}}</h2>
             <p>{{item.description}}</p>
             <ul class="list-disc list-inside leading-4">
               {%for line in item.features%}
